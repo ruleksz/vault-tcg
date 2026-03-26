@@ -17,9 +17,9 @@ const Card: React.FC<CardProps> = ({ card, onClick, priceFlash }) => {
     const rotateY = useTransform(x, [-100, 100], [-20, 20]);
 
     const getPriceColor = () => {
-        if (priceFlash === 'up') return 'text-green-400';
-        if (priceFlash === 'down') return 'text-red-400';
-        return card.priceChange >= 0 ? 'text-green-400' : 'text-red-400';
+        if (priceFlash === 'up') return 'text-green-500 dark:text-green-400';
+        if (priceFlash === 'down') return 'text-red-500 dark:text-red-400';
+        return card.priceChange >= 0 ? 'text-green-500 dark:text-green-400' : 'text-red-500 dark:text-red-400';
     };
 
     return (
@@ -42,7 +42,7 @@ const Card: React.FC<CardProps> = ({ card, onClick, priceFlash }) => {
             }}
         >
             <motion.div
-                className="glass rounded-xl overflow-hidden"
+                className="bg-white dark:bg-white/5 rounded-xl overflow-hidden shadow-lg dark:shadow-purple-500/10"
                 style={{
                     rotateX: isHovered ? rotateX : 0,
                     rotateY: isHovered ? rotateY : 0,
@@ -50,7 +50,7 @@ const Card: React.FC<CardProps> = ({ card, onClick, priceFlash }) => {
                 }}
                 whileHover={{
                     scale: 1.05,
-                    boxShadow: '0 0 30px rgba(139, 92, 246, 0.5)',
+                    boxShadow: '0 0 30px rgba(139, 92, 246, 0.3)',
                 }}
             >
                 <div className="relative">
@@ -63,19 +63,19 @@ const Card: React.FC<CardProps> = ({ card, onClick, priceFlash }) => {
                         }}
                     />
                     <div className="absolute top-2 right-2">
-                        <div className="glass px-2 py-1 rounded-lg text-xs font-semibold">
+                        <div className="bg-white/90 dark:bg-black/90 backdrop-blur-sm px-2 py-1 rounded-lg text-xs font-semibold text-gray-700 dark:text-white">
                             {card.rarity}
                         </div>
                     </div>
                 </div>
 
                 <div className="p-4">
-                    <h3 className="font-bold text-white mb-1 truncate">{card.name}</h3>
-                    <p className="text-sm text-gray-400 mb-2">{card.set}</p>
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-1 truncate">{card.name}</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{card.set}</p>
 
                     <div className="flex justify-between items-center">
                         <div className="flex items-center gap-1">
-                            <DollarSign className="w-4 h-4 text-purple-400" />
+                            <DollarSign className="w-4 h-4 text-purple-500 dark:text-purple-400" />
                             <motion.span
                                 key={card.price}
                                 initial={{ scale: 1.2 }}
@@ -86,7 +86,7 @@ const Card: React.FC<CardProps> = ({ card, onClick, priceFlash }) => {
                             </motion.span>
                         </div>
 
-                        <div className={`flex items-center gap-1 text-sm ${card.priceChange >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                        <div className={`flex items-center gap-1 text-sm ${card.priceChange >= 0 ? 'text-green-500 dark:text-green-400' : 'text-red-500 dark:text-red-400'}`}>
                             {card.priceChange >= 0 ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
                             <span>{Math.abs(card.priceChange).toFixed(1)}%</span>
                         </div>

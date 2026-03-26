@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
+import Navbar from './components/Navbar'; // Add this import
 import Hero from './components/Hero';
 import Card from './components/Card';
 import CardModal from './components/CardModal';
@@ -10,7 +11,6 @@ import TrendingCards from './components/TrendingCards';
 import { usePokemonCards } from './hooks/usePokemonCards';
 import { useYugiohCards } from './hooks/useYugiohCards';
 import { useMTGCards } from './hooks/useMTGCards';
-import { useRealtimePrice } from './hooks/useRealtimePrice';
 import { Card as CardType, FilterOptions, TabType } from './types';
 import { fetchOnePieceMockCards, simulatePriceUpdate } from './utils/api';
 import { Loader2 } from 'lucide-react';
@@ -32,13 +32,12 @@ function App() {
         maxPrice: Infinity,
         cardType: '',
     });
-    const [realTimeCards, setRealTimeCards] = useState<CardType[]>([]);
+    const [onePieceCards, setOnePieceCards] = useState<CardType[]>([]);
 
     // Fetch data for each tab
     const { data: pokemonCards, isLoading: pokemonLoading } = usePokemonCards();
     const { data: yugiohCards, isLoading: yugiohLoading } = useYugiohCards();
     const { data: mtgCards, isLoading: mtgLoading } = useMTGCards();
-    const [onePieceCards, setOnePieceCards] = useState<CardType[]>([]);
 
     useEffect(() => {
         setOnePieceCards(fetchOnePieceMockCards());
@@ -97,10 +96,8 @@ function App() {
         setSelectedCard(null);
     };
 
-    // Get price history for selected card
     const getPriceHistoryForCard = () => {
         if (!selectedCard) return [];
-        // Simulate price history for the card
         const history = [];
         for (let i = 20; i >= 0; i--) {
             history.push({
@@ -113,25 +110,16 @@ function App() {
 
     return (
         <div className="min-h-screen bg-black">
-            <Hero />
+            {/* Navbar */}
+            <Navbar activeTab={activeTab} onTabChange={setActiveTab} />
+
+            {/* Add padding top to account for fixed navbar */}
+            <div className="pt-16 md:pt-20">
+                <Hero />
+            </div>
 
             <div className="container mx-auto px-4 py-12">
-                {/* Tabs */}
-                <div className="flex flex-wrap gap-2 mb-8 border-b border-white/10 pb-4">
-                    {tabs.map((tab) => (
-                        <button
-                            key={tab.id}
-                            onClick={() => setActiveTab(tab.id)}
-                            className={`px-6 py-2 rounded-lg font-semibold transition-all ${activeTab === tab.id
-                                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
-                                    : 'glass text-gray-300 hover:text-white hover:bg-white/10'
-                                }`}
-                        >
-                            <span className="mr-2">{tab.icon}</span>
-                            {tab.label}
-                        </button>
-                    ))}
-                </div>
+                {/* Tabs are now handled by navbar, remove the old tabs section */}
 
                 {/* Search and Filters */}
                 <div className="flex flex-wrap gap-4 mb-8">

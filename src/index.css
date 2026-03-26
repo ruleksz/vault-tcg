@@ -1,8 +1,27 @@
 @import "tailwindcss";
 
 @layer base {
+
+    /* Light mode styles */
+    :root {
+        --bg-primary: #ffffff;
+        --bg-secondary: #f3f4f6;
+        --text-primary: #111827;
+        --text-secondary: #6b7280;
+        --border-color: #e5e7eb;
+    }
+
+    /* Dark mode styles */
+    .dark {
+        --bg-primary: #000000;
+        --bg-secondary: #1a1a1a;
+        --text-primary: #ffffff;
+        --text-secondary: #9ca3af;
+        --border-color: #374151;
+    }
+
     body {
-        @apply bg-black text-white overflow-x-hidden;
+        @apply bg-purple-800 dark:bg-white transition-colors duration-300;
     }
 }
 
@@ -29,6 +48,13 @@
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.1);
     }
+
+    /* Light mode glass effect */
+    .dark .glass {
+        background: rgba(0, 0, 0, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
 }
 
 /* Custom scrollbar */
@@ -38,14 +64,14 @@
 }
 
 ::-webkit-scrollbar-track {
-    background: #1a1a1a;
+    @apply bg-gray-200 dark:bg-gray-800;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #8b5cf6;
+    @apply bg-purple-500 dark:bg-purple-600;
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #7c3aed;
+    @apply bg-purple-600 dark:bg-purple-700;
 }
