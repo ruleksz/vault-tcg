@@ -38,7 +38,9 @@ cd vault-tcg
 npm install && npm run dev
 ```
 
-- **View live demo on vercel**
+### View live demo on vercel
+
+https://vault-tcg-rose.vercel.app/
 
 ```
 https://vault-tcg-rose.vercel.app/
